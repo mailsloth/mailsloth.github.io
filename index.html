@@ -1,1 +1,97 @@
-This is a test.
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js" crossorigin="anonymous"></script>
+	</head>
+	<body>
+		<div class="container">
+			<h1>mailsloth</h1>
+			<p>For when you can't be fucked with mailchimp.</p>
+			<p>Capture emails in three steps.</p>
+			
+			<h4>1. Swap your email address for an api key.</h4>
+			<p>We'll send a copy to your email address.</p>
+			<form>
+				<div class="form-group">
+					<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+					<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+				</div>
+				<button class="btn btn-primary">Done</button>
+			</form>
+			
+			<br />
+			
+			<h4>2. Copy the form snippet onto your site.</h4>
+			<code data-bind="text: codeSnippet"></code>
+			
+			<br />
+			
+			<h4>3. Download your email list.</h4>
+			<code data-bind="text: downloadSnippet"></code>
+		</div>
+	</body>
+	<script>
+		function VM() {
+			const endpoint = "https://api.mailsloth.net/";
+			this.email = ko.observable("");
+			this.sending = ko.observable(false);
+			this.privateKey = ko.observable();
+			this.publicKey = ko.observable();
+			this.captcha = ko.observable();
+			this.error = ko.observable();
+			
+			this.codeSnippet = ko.computed(() => {
+				if (this.publicKey()) {
+					var str =  "test";
+					return $("<div/>").text(str).html();
+				}
+				
+				return "// Enter an email address and click submit."
+			});
+			
+			var exampleEmails = [
+				{	Email: "asdf@email.com",
+					Url: "yoursite.com" },
+				{	Email: "qwer@internet.com",
+					Url: "anothersite.com" }
+			]
+			
+			this.downloadSnippet = ko.computed(() => {
+				if (this.privateKey()) {
+					var json = JSON.stringify(exampleEmails);
+					return "curl -X GET '" + endpoint + "retrieve?key=" + this.privateKey() + "'" + 
+						json;
+				}
+				
+				return "// enter an email address and click submit.";
+			});
+			
+			this.submit = () => {
+				this.sending(true);
+				var post = {
+					email: this.email(),
+					capthcha: this.captcha()
+				}
+				
+				$.post(endpoint + "create", (err, data) => {
+					this.sending(false);
+					
+					if (err) {
+						console.error(err);
+						this.error(err.message);
+					}
+					else {
+						this.privateKey(data.PrivateKey);
+						this.publicKey(data.PublicKey);
+					}
+				})
+			}
+		}
+		
+		ko.applyBindings(new VM());
+	</script>
+</html>
