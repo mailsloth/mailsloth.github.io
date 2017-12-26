@@ -1,4 +1,4 @@
-function mailsoth_submit(elem) {
+function mailsoth_submit(elem, key) {
 	function placeholder(msg) {
 		elem.value = '';
 		elem.placeholder = msg;
@@ -7,7 +7,7 @@ function mailsoth_submit(elem) {
 	var url = 'https://lazymailchimp.azurewebsites.net/api/add'; // 'https://api.mailsloth.net/add';
 	var req = new XMLHttpRequest();
 	var body = JSON.stringify({
-		Id: "2mTVQ0DtNk",
+		Id: key,
 		Email: elem.value,
 		SourceUri: window.location.href
 	});
@@ -40,11 +40,12 @@ function mailsoth_submit(elem) {
 	var elements = document.getElementsByClassName("mailsloth-form");
 	for (var i = 0; i < elements.length; i++) {
 		var e = elements[i];
+		var key = e.getAttribute("data-bind");
 		var id = 'ms_input_' + i;
 		e.innerHTML = 
 		`<form> \
 			<input id='${id}' name='ms-email' type='email' placeholder='Enter email address'></input> \
-			<button onclick="mailsoth_submit(${id})" class='ms-submit' type='button'>Subscribe</button> \
+			<button onclick="mailsoth_submit(${id}, '${key}')" class='ms-submit' type='button'>Subscribe</button> \
 			<br /> \
 			<sup>easy mailing lists by <a href='https://mailsloth.net'>mailsloth</a></sup> \
 		</form>`;

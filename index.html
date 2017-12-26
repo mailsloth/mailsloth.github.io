@@ -18,7 +18,7 @@
 			<h4>1. Swap your email address for an api key.</h4>
 			<p>We'll send a copy to your email address.</p>
 			<form>
-				<div class="form-group">
+				<div class="form-group" style="width: 300px">
 					<input  type="email" 
 							class="form-control" 
 							id="exampleInputEmail1" 
@@ -36,15 +36,18 @@
 			
 			<h4>2. Copy the form and script snippet onto your site.</h4>
 			<code>
-				&lt;script src='/sloth.js'&gt;&lt;/script&gt;
+				&lt;script src='//mailsloth.net/sloth.js'&gt;&lt;/script&gt;
 			</code>
 			
 			<br />
 			
 			<h4>3. Tag your form element</h4>
+			
 			<code data-bind="html: formSnippet">
 				
 			</code>
+			<br />
+			<small>See a demo form <a href="test.html">here</a>.</small>
 			
 			<br />
 			
@@ -55,75 +58,9 @@
 			<code data-bind="visible: privateKey">
 			[{Email: "asdf@email.com", Url: "yoursite.com", CapturedAt: "2017-11-23" }]
 			</code>
-			
 			<br />
 			<small>Put together in a rush by <a href="https://twitter.com/jazzyskeltor">@jazzyskeltor</a>.</small>
 		</div>
 	</body>
-	<script>
-		function VM() {
-			const endpoint = "http://api.mailsloth.net/";
-			this.email = ko.observable("");
-			this.sending = ko.observable(false);
-			this.privateKey = ko.observable("");
-			this.publicKey = ko.observable("");
-			this.captcha = ko.observable("captcha");
-			this.error = ko.observable();
-			
-			this.codeSnippet = ko.computed(() => {
-				if (this.publicKey()) {
-					var str =  "&lt;script src='sloth.js'&gt;&lt;/script&gt;";
-					return $("<div/>").text(str).html();
-				}
-				
-				return "// Enter an email address and click submit."
-			});
-			
-			this.formSnippet = ko.computed(() => {
-				if (this.publicKey()) {
-					return "&lt;div class='mailsloth-form' data-bind='" + this.publicKey() + "'/&gt;";
-				}
-				
-				return "// Enter an email address and click submit."
-			});
-			
-			this.downloadSnippet = ko.computed(() => {
-				if (this.privateKey()) {
-					return "curl -X GET '" + endpoint + "retrieve?key=" + this.privateKey() + "'";
-				}
-				
-				return "// enter an email address and click submit.";
-			});
-			
-			this.submit = () => {
-				this.sending(true);
-				
-				var post = JSON.stringify({
-					Email: this.email(),
-					Capthcha: this.captcha()
-				});
-				
-				var url = endpoint + "create2";
-				
-				$.ajax({
-					url: url,
-					data: post,
-					method: "POST",
-					contentType: "application/json",
-					success: (d, status, xhr) => {
-						this.publicKey(d.PublicKey);
-						this.privateKey(d.PrivateKey);
-					},
-					complete: () => {
-						this.sending(false);
-					},
-					error: (err) => {
-						console.error(err);
-					}
-				});
-			}
-		}
-		
-		ko.applyBindings(new VM());
-	</script>
+	<script src="model.js"></script>
 </html>
