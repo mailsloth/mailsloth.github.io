@@ -2,10 +2,12 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js" crossorigin="anonymous"></script>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		<meta content="utf-8" http-equiv="encoding">
 	</head>
 	<body>
 		<div class="container">
@@ -17,54 +19,77 @@
 			<p>We'll send a copy to your email address.</p>
 			<form>
 				<div class="form-group">
-					<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-					<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+					<input  type="email" 
+							class="form-control" 
+							id="exampleInputEmail1" 
+							aria-describedby="emailHelp" 
+							placeholder="Enter email"
+							data-bind="value: email">
+					<small  id="emailHelp" 
+							class="form-text text-muted">We'll never share your email with anyone else.</small>
+					<small  class="form-text text-muted" data-bind="visible: sending">Sending...</small>
 				</div>
-				<button class="btn btn-primary">Done</button>
+				<button class="btn btn-primary" data-bind="click: submit">Submit</button>
 			</form>
 			
 			<br />
 			
-			<h4>2. Copy the form snippet onto your site.</h4>
-			<code data-bind="text: codeSnippet"></code>
+			<h4>2. Copy the form and script snippet onto your site.</h4>
+			<code>
+				&lt;script src='/sloth.js'&gt;&lt;/script&gt;
+			</code>
 			
 			<br />
 			
-			<h4>3. Download your email list.</h4>
+			<h4>3. Tag your form element</h4>
+			<code data-bind="html: formSnippet">
+				
+			</code>
+			
+			<br />
+			
+			<h4>4. Download your email list.</h4>
 			<code data-bind="text: downloadSnippet"></code>
+			
+			<br />
+			<code data-bind="visible: privateKey">
+			[{Email: "asdf@email.com", Url: "yoursite.com", CapturedAt: "2017-11-23" }]
+			</code>
+			
+			<br />
+			<small>Put together in a rush by <a href="https://twitter.com/jazzyskeltor">@jazzyskeltor</a>.</small>
 		</div>
 	</body>
 	<script>
 		function VM() {
-			const endpoint = "https://api.mailsloth.net/";
+			const endpoint = "http://api.mailsloth.net/";
 			this.email = ko.observable("");
 			this.sending = ko.observable(false);
-			this.privateKey = ko.observable();
-			this.publicKey = ko.observable();
-			this.captcha = ko.observable();
+			this.privateKey = ko.observable("");
+			this.publicKey = ko.observable("");
+			this.captcha = ko.observable("captcha");
 			this.error = ko.observable();
 			
 			this.codeSnippet = ko.computed(() => {
 				if (this.publicKey()) {
-					var str =  "test";
+					var str =  "&lt;script src='sloth.js'&gt;&lt;/script&gt;";
 					return $("<div/>").text(str).html();
 				}
 				
 				return "// Enter an email address and click submit."
 			});
 			
-			var exampleEmails = [
-				{	Email: "asdf@email.com",
-					Url: "yoursite.com" },
-				{	Email: "qwer@internet.com",
-					Url: "anothersite.com" }
-			]
+			this.formSnippet = ko.computed(() => {
+				if (this.publicKey()) {
+					return "&lt;div class='mailsloth-form' data-bind='" + this.publicKey() + "'/&gt;";
+				}
+				
+				return "// Enter an email address and click submit."
+			});
 			
 			this.downloadSnippet = ko.computed(() => {
 				if (this.privateKey()) {
-					var json = JSON.stringify(exampleEmails);
-					return "curl -X GET '" + endpoint + "retrieve?key=" + this.privateKey() + "'" + 
-						json;
+					return "curl -X GET '" + endpoint + "retrieve?key=" + this.privateKey() + "'";
 				}
 				
 				return "// enter an email address and click submit.";
@@ -72,23 +97,30 @@
 			
 			this.submit = () => {
 				this.sending(true);
-				var post = {
-					email: this.email(),
-					capthcha: this.captcha()
-				}
 				
-				$.post(endpoint + "create", (err, data) => {
-					this.sending(false);
-					
-					if (err) {
+				var post = JSON.stringify({
+					Email: this.email(),
+					Capthcha: this.captcha()
+				});
+				
+				var url = endpoint + "create2";
+				
+				$.ajax({
+					url: url,
+					data: post,
+					method: "POST",
+					contentType: "application/json",
+					success: (d, status, xhr) => {
+						this.publicKey(d.PublicKey);
+						this.privateKey(d.PrivateKey);
+					},
+					complete: () => {
+						this.sending(false);
+					},
+					error: (err) => {
 						console.error(err);
-						this.error(err.message);
 					}
-					else {
-						this.privateKey(data.PrivateKey);
-						this.publicKey(data.PublicKey);
-					}
-				})
+				});
 			}
 		}
 		
