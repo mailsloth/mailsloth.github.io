@@ -4,7 +4,7 @@ function mailsoth_submit(elem, key) {
 		elem.placeholder = msg;
 	}
 	
-	var url = 'https://lazymailchimp.azurewebsites.net/api/add'; // 'https://api.mailsloth.net/add';
+	var url = 'https://api.mailsloth.net/add';
 	var req = new XMLHttpRequest();
 	var body = JSON.stringify({
 		Id: key,
@@ -12,7 +12,7 @@ function mailsoth_submit(elem, key) {
 		SourceUri: window.location.href
 	});
 	
-	req.onreadystatechange = () => {
+	req.onreadystatechange = function () {
 		if (req.readyState == 4) { // Done
 			if (req.status == 200) { // OK 
 				placeholder('Subscribed!');
@@ -20,7 +20,7 @@ function mailsoth_submit(elem, key) {
 		}
 	};
 	
-	req.onerror = (e, status, xhr) => {
+	req.onerror = function(e, status, xhr) {
 		console.log(status);
 		console.log(xhr);
 		console.log(e);
@@ -43,7 +43,7 @@ function mailsoth_submit(elem, key) {
 		var key = e.getAttribute("data-bind");
 		var id = 'ms_input_' + i;
 		e.innerHTML = 
-		`<form> \
+		`<form class='msloth-form'> \
 			<input id='${id}' name='ms-email' type='email' placeholder='Enter email address'></input> \
 			<button onclick="mailsoth_submit(${id}, '${key}')" class='ms-submit' type='button'>Subscribe</button> \
 			<br /> \
@@ -51,24 +51,3 @@ function mailsoth_submit(elem, key) {
 		</form>`;
 	}
 }())
-
-function download() {
-	var url = 'https://lazymailchimp.azurewebsites.net/api/retrieve'; // 'https://api.mailsloth.net/add';
-	var req = new XMLHttpRequest();
-	var key = 'vpRbPJD4ko';
-	
-	req.onreadystatechange = () => {
-		if (req.readyState == 4) { // Done
-			if (req.status == 200) { // OK 
-				placeholder('Subscribed!');
-			}
-		}
-	};
-	
-	req.open('GET', url, true);
-	req.setRequestHeader('Content-Type', 'application/json');
-	req.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-	req.send(body);
-	
-	placeholder('Sending...');
-}
