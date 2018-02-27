@@ -8,6 +8,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js" crossorigin="anonymous"></script>
 		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 		<meta content="utf-8" http-equiv="encoding">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110020014-3"></script>
 		<script>
@@ -17,83 +18,134 @@
 
 		gtag('config', 'UA-110020014-3');
 		</script>
+		<title>Mailsloth</title>
 	</head>
 	<body>
 		<div class="container">
-			<img src="sloth.small.png" alt="Image by Pearson Scott Foresman [Public domain], via Wikimedia Commons" />
-			<h1>mailsloth</h1>
-			<h4>For when you can't be fucked with mailchimp.</h4>
-			<p>Capture emails in a few steps.</p>
-			
-			<br />
-
-			<h4>1. Swap your email address for an api key.</h4>
-			<p>We'll send a copy to your email address.</p>
-			<form>
-				<div class="form-group" style="max-width: 300px">
-					<input  type="email" 
-							class="form-control" 
-							id="exampleInputEmail1" 
-							aria-describedby="emailHelp" 
-							placeholder="Enter email"
-							data-bind="value: email">
-					<small  id="emailHelp" 
-							class="form-text text-muted">We'll never share your email with anyone else.</small>
-					<small  class="form-text text-muted" data-bind="visible: sending">Sending...</small>
-					<small  class="form-text text-muted" data-bind="visible: success">Success! Check below.</small>
-					<small  class="form-text text-muted" data-bind="visible: error, text: error"></small>
+			<div class="row">
+				<div class="col-xs">
+					<img src="sloth.small.png" alt="Image by Pearson Scott Foresman [Public domain], via Wikimedia Commons" />
 				</div>
-				<button class="btn btn-primary" data-bind="click: submit">Submit</button>
-			</form>
-			
-			<br />
-			<br />
-			
-			<h4>2. Copy the form and script snippet onto your site.</h4>
-			<code>
-				&lt;script src='//api.mailsloth.net/sloth.js'&gt;&lt;/script&gt;
-			</code>
-			
-			<br />
-			<br />
-			
-			<h4>3. Tag your form element</h4>
-			
-			<code data-bind="html: formSnippet">
-				
-			</code>
-			<br />
-			<small>See a demo form <a href="test.html" target="_blank">here</a>.</small>
-			
-			<br />
-			<br />
-			
-			<h4>4. Download your email list.</h4>
-			<code data-bind="text: downloadSnippet"></code>
+			</div>
+			<div class="row">
+				<div class="col-xs">
+					<h1>mailsloth</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs">
+					<h4>For when you can't be fucked with mailchimp.</h4>
+					<p>Capture emails in a few steps.</p>
+				</div>
+			</div>
 			
 			<br />
 			
-			<div data-bind="visible: privateKey">
-				e.g:
-				<code>
-				[{Email: "asdf@email.com", Url: "yoursite.com", CapturedAt: "2017-11-23" }]
-				</code>
+			<div class="row">
+				<div clas="col-xs">
+					<h4>1. Swap your email address for an api key.</h4>
+					<p>We'll send a copy to your email address.</p>
+				</div>
 			</div>
 
 			<br />
 
-			<p>Customise css with the following classes:</p>
-			<code>
-				mailsloth-form;
-				mailsloth-input;
-				mailsloth-button;
-			</code>
+			<div class="row">
+				<div class="col-xs">
+					<form>
+						<div class="form-group" style="max-width: 300px">
+							<input  type="email" 
+									class="form-control" 
+									id="exampleInputEmail1" 
+									aria-describedby="emailHelp" 
+									placeholder="Enter email"
+									data-bind="value: email">
+							<small  id="emailHelp" 
+									class="form-text text-muted">We'll never share your email with anyone else.</small>
+							<small  class="form-text text-muted" data-bind="visible: sending">Sending...</small>
+							<small  class="form-text text-muted" data-bind="visible: success">Success! Check below.</small>
+							<small  class="form-text text-muted" data-bind="visible: error, text: error"></small>
+						</div>
+						<button class="btn btn-primary" data-bind="click: submit">Submit</button>
+					</form>
+				</div>
+			</div>
 
 			<br />
+
+			<div class="row">
+				<div class="col-xs">
+					<h4>2. Copy the form and script snippet onto your site.</h4>
+					<code>
+						&lt;script src='//api.mailsloth.net/sloth.js'&gt;&lt;/script&gt;
+					</code>
+				</div>
+			</div>
+
 			<br />
 
-			<p>Put together in a rush by <a href="https://twitter.com/jazzyskeltor">@jazzyskeltor</a>.</p>
-			<p><small><a href="https://commons.wikimedia.org/wiki/File%3ASloth_(PSF).png">Image by Pearson Scott Foresman, via Wikimedia Commons.</a></small></p>
+			<div class="row">
+				<div class="col-xs">
+					<h4>3. Tag your form element</h4>
+					
+					<code data-bind="html: formSnippet">
+						
+					</code>
+				</div>
+			</div>
+
+			<br/>
+
+			<div class="row">
+				<div class="col-xs">
+					<small>See a demo form <a href="test.html" target="_blank">here</a>.</small>
+				</div>
+			</div>
+			
+			<br/>
+
+			<div class="row">
+				<div class="col-xs">
+					<h4>4. Download your email list.</h4>
+					<code data-bind="text: downloadSnippet"></code>
+				</div>
+			</div>
+
+			<br />
+
+			<div class="row">
+				<div class="col-xs">
+					<div data-bind="visible: privateKey">
+						e.g:
+						<code>
+						[{Email: "asdf@email.com", Url: "yoursite.com", CapturedAt: "2017-11-23" }]
+						</code>
+					</div>
+				</div>
+			</div>
+
+			<br />
+			
+			<div class="row">
+				<div class="col-xs">
+					<p>Customise css with the following classes:</p>
+					<code>
+						mailsloth-form;
+						mailsloth-input;
+						mailsloth-button;
+					</code>
+				</div>
+			</div>
+
+			<hr />
+
+			<div class="row">
+				<div class="col-xs">
+					<p>Put together in a rush by <a href="https://twitter.com/jazzyskeltor">@jazzyskeltor</a>.</p>
+					<p><small><a href="https://commons.wikimedia.org/wiki/File%3ASloth_(PSF).png">Image by Pearson Scott Foresman, via Wikimedia Commons.</a></small></p>
+				</div>
+			</div>
+
 		</div>
 	</body>
 	<script src="model.js"></script>
