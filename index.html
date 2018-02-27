@@ -20,14 +20,17 @@
 	</head>
 	<body>
 		<div class="container">
+			<img width="158px" src="Sloth_(PSF)_flipped.png" alt="Image by Pearson Scott Foresman [Public domain], via Wikimedia Commons" />
 			<h1>mailsloth</h1>
-			<p>For when you can't be fucked with mailchimp.</p>
+			<h4>For when you can't be fucked with mailchimp.</h4>
 			<p>Capture emails in a few steps.</p>
 			
+			<br />
+
 			<h4>1. Swap your email address for an api key.</h4>
 			<p>We'll send a copy to your email address.</p>
 			<form>
-				<div class="form-group" style="width: 300px">
+				<div class="form-group" style="max-width: 300px">
 					<input  type="email" 
 							class="form-control" 
 							id="exampleInputEmail1" 
@@ -37,10 +40,13 @@
 					<small  id="emailHelp" 
 							class="form-text text-muted">We'll never share your email with anyone else.</small>
 					<small  class="form-text text-muted" data-bind="visible: sending">Sending...</small>
+					<small  class="form-text text-muted" data-bind="visible: success">Success! Check below.</small>
+					<small  class="form-text text-muted" data-bind="visible: error, text: error"></small>
 				</div>
 				<button class="btn btn-primary" data-bind="click: submit">Submit</button>
 			</form>
 			
+			<br />
 			<br />
 			
 			<h4>2. Copy the form and script snippet onto your site.</h4>
@@ -49,6 +55,7 @@
 			</code>
 			
 			<br />
+			<br />
 			
 			<h4>3. Tag your form element</h4>
 			
@@ -56,19 +63,37 @@
 				
 			</code>
 			<br />
-			<small>See a demo form <a href="test.html">here</a>.</small>
+			<small>See a demo form <a href="test.html" target="_blank">here</a>.</small>
 			
+			<br />
 			<br />
 			
 			<h4>4. Download your email list.</h4>
 			<code data-bind="text: downloadSnippet"></code>
 			
 			<br />
-			<code data-bind="visible: privateKey">
-			[{Email: "asdf@email.com", Url: "yoursite.com", CapturedAt: "2017-11-23" }]
-			</code>
+			
+			<div data-bind="visible: privateKey">
+				e.g:
+				<code>
+				[{Email: "asdf@email.com", Url: "yoursite.com", CapturedAt: "2017-11-23" }]
+				</code>
+			</div>
+
 			<br />
-			<small>Put together in a rush by <a href="https://twitter.com/jazzyskeltor">@jazzyskeltor</a>.</small>
+
+			<p>Customise css with the following classes:</p>
+			<code>
+				mailsloth-form;
+				mailsloth-input;
+				mailsloth-button;
+			</code>
+
+			<br />
+			<br />
+
+			<p>Put together in a rush by <a href="https://twitter.com/jazzyskeltor">@jazzyskeltor</a>.</p>
+			<p><small><a href="https://commons.wikimedia.org/wiki/File%3ASloth_(PSF).png">Image by Pearson Scott Foresman, via Wikimedia Commons.</a></small></p>
 		</div>
 	</body>
 	<script src="model.js"></script>

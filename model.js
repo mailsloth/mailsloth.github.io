@@ -6,6 +6,8 @@ function VM() {
 	this.publicKey = ko.observable("");
 	this.captcha = ko.observable("captcha");
 	this.error = ko.observable();
+	this.success = ko.observable(false);
+	this.error = ko.observable("");
 	
 	this.codeSnippet = ko.computed(() => {
 		if (this.publicKey()) {
@@ -26,7 +28,7 @@ function VM() {
 	
 	this.downloadSnippet = ko.computed(() => {
 		if (this.privateKey()) {
-			return "curl -X GET '" + endpoint + "retrieve?key=" + this.privateKey() + "'";
+			return "wget '" + endpoint + "retrieve?key=" + this.privateKey() + "'";
 		}
 		
 		return "// enter an email address and click submit.";
@@ -34,7 +36,8 @@ function VM() {
 	
 	this.submit = () => {
 		this.sending(true);
-		
+		this.success(false);
+
 		var post = JSON.stringify({
 			Email: this.email(),
 			Capthcha: this.captcha()
@@ -50,12 +53,16 @@ function VM() {
 			success: (d, status, xhr) => {
 				this.publicKey(d.PublicKey);
 				this.privateKey(d.PrivateKey);
+				this.success(true);
+				this.error("");
 			},
 			complete: () => {
 				this.sending(false);
 			},
 			error: (err) => {
 				console.error(err);
+				this.success(false);	
+				this.error(error.msg);
 			}
 		});
 	}

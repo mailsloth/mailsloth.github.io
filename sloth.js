@@ -43,9 +43,9 @@ function mailsoth_submit(elem, key) {
 		var key = e.getAttribute("data-bind");
 		var id = 'ms_input_' + i;
 		e.innerHTML = 
-		`<form class='msloth-form'> \
-			<input id='${id}' name='ms-email' type='email' placeholder='Enter email address'></input> \
-			<button onclick="mailsoth_submit(${id}, '${key}')" class='ms-submit' type='button'>Subscribe</button> \
+		`<form class='mailsloth-form'> \
+			<input class='mailsloth-input' id='${id}' name='ms-email' type='email' placeholder='Enter email address'></input> \
+			<button onclick="mailsoth_submit(${id}, '${key}')" class='mailsloth-submit' type='button'>Subscribe</button> \
 			<br /> \
 			<sup>easy mailing lists by <a href='https://mailsloth.net'>mailsloth</a></sup> \
 		</form>`;
