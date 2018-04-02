@@ -17,6 +17,8 @@
 			SourceUri: window.location.href
 		});
 		
+		console.log(body);
+		
 		req.onreadystatechange = function () {
 			if (req.readyState == 4) { // Done
 				if (req.status == 400) {
@@ -53,8 +55,8 @@
 			var id = 'mailsloth_input_' + i;
 			e.innerHTML = 
 			`<form> \
-				<input class='${inputCss}' id='${id}' name='ms-email' type='email' placeholder='Enter email address'></input> \
-				<button onclick="mailsoth_submit(${id}, '${key}')" type='submit'>Subscribe</button> \
+				<input class='${inputCss}' id='${id}' name='ms-email' type='email' data-bind='${key}' placeholder='Enter email address'></input> \
+				<button type='submit'>Subscribe</button> \
 				<br /> \
 				<sup>easy mailing lists by <a href='https://mailsloth.net' target='_blank'>mailsloth</a></sup> \
 			</form>`;
@@ -62,6 +64,12 @@
 	}
 
 	function editForms() {
+		function callback(element, key) {
+			return function(event) {
+				mailsoth_submit(element, key);
+				event.preventDefault();
+			}
+		}
 		var elements = document.getElementsByClassName(inputCss);
 		for (var i = 0; i < elements.length; i++) {
 			var element = elements[i];
@@ -69,10 +77,7 @@
 			var form = element.form;
 
 			if (form) {
-				form.onsubmit = function(event) {
-					mailsoth_submit(element, key);
-					event.preventDefault();
-				}
+				form.onsubmit = callback(element, key);
 			}
 		}
 	}

@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+		<link rel="icon" href="favicon.ico">
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
@@ -18,7 +19,7 @@
 
 		gtag('config', 'UA-110020014-3');
 		</script>
-		<title>Mailsloth</title>
+		<title>Mailsloth - Easy email lists</title>
 	</head>
 	<body>
 		<div class="container">
@@ -99,7 +100,6 @@
 						  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
 								<div class="card-body">
 									<p>Copy and paste the following html snippet onto your site:</p>
-									<p><small>See a demo form <a href="test.html" target="_blank">here</a>.</small></p>
 									<code data-bind="html: formSnippet">
 										
 									</code>
@@ -118,7 +118,7 @@
 									<p>Create a form if you dont already have one and add the following to your email <code>input</code> element:</p>
 										<ul>
 											<li>The class <code>mailsloth-email-input</code></li>
-											<li>The attribute <code>data-bind='<span data-bind="text: publicKey"></span>'</code></li>
+											<li>The attribute <code>data-bind='<span data-bind="text: publicKey"></span>'</code> with your public key</li>
 										</ul>
 									</p>
 									<p>The form will be modified to submit to the mailsloth servers before doing its default action.</p>
@@ -126,6 +126,7 @@
 						  </div>
 						</div>
 					</div>
+					<p><small>See demo forms <a href="test.html" target="_blank">here</a>.</small></p>
 				</div>
 			</div>
 			
@@ -148,19 +149,6 @@
 						[{Email: "asdf@email.com", Url: "yoursite.com", CapturedAt: "2017-11-23" }]
 						</code>
 					</div>
-				</div>
-			</div>
-
-			<br />
-			
-			<div class="row">
-				<div class="col-sm">
-					<p>Customise css with the following classes:</p>
-					<code>
-						mailsloth-form;
-						mailsloth-input;
-						mailsloth-button;
-					</code>
 				</div>
 			</div>
 

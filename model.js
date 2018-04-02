@@ -1,5 +1,7 @@
 function VM() {
 	const endpoint = "http://api.mailsloth.net/";
+	const snippetDefault = "// enter an email address above and click submit.";
+
 	this.email = ko.observable("");
 	this.sending = ko.observable(false);
 	this.privateKey = ko.observable("");
@@ -15,7 +17,7 @@ function VM() {
 			return $("<div/>").text(str).html();
 		}
 		
-		return "// Enter an email address and click submit."
+		return snippetDefault;
 	});
 	
 	this.formSnippet = ko.computed(() => {
@@ -23,7 +25,7 @@ function VM() {
 			return "&lt;div class='mailsloth-form' data-bind='" + this.publicKey() + "'/&gt;";
 		}
 		
-		return "// Enter an email address and click submit."
+		return snippetDefault;
 	});
 
 	this.inputSnippet = ko.computed(() => {
@@ -31,7 +33,7 @@ function VM() {
 			return "&lt;div class='mailsloth-form' data-bind='" + this.publicKey() + "'/&gt;";
 		}
 		
-		return "// Enter an email address and click submit."
+		return snippetDefault;
 	});
 	
 	this.downloadSnippet = ko.computed(() => {
@@ -39,7 +41,7 @@ function VM() {
 			return "wget '" + endpoint + "retrieve?key=" + this.privateKey() + "'";
 		}
 		
-		return "// enter an email address and click submit.";
+		return snippetDefault;
 	});
 	
 	this.submit = () => {
