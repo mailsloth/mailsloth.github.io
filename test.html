@@ -5,7 +5,6 @@
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js" crossorigin="anonymous"></script>
 		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 		<meta content="utf-8" http-equiv="encoding">
 		<!-- Global site tag (gtag.js) - Google Analytics -->
@@ -20,9 +19,17 @@
 	</head>
 	<body>
 		<div class="container">
+			<h4>Ready made form</h4>
 			<br />
-			<div class='mailsloth-form' data-bind='2mTVQ0DtNk'></div>
+			<div class='mailsloth-form-here' data-bind='2mTVQ0DtNk'></div>
 			<br />
+		</div>
+		<div class='container'>
+			<h4>Existing form</h4>
+			<form>
+				<input class='mailsloth-form-email' data-bind='2mTVQ0DtNk' type='email'>
+				<button type="submit">Submit</button>
+			</form>
 		</div>
 	</body>
 	<script src='sloth.js'></script> 

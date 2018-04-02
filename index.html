@@ -75,7 +75,7 @@
 
 			<div class="row">
 				<div class="col-sm">
-					<h4>2. Copy the form and script snippet onto your site.</h4>
+					<h4>2. Copy the script snippet onto your site.</h4>
 					<code>
 						&lt;script src='//api.mailsloth.net/sloth.js'&gt;&lt;/script&gt;
 					</code>
@@ -86,19 +86,46 @@
 
 			<div class="row">
 				<div class="col-sm">
-					<h4>3. Tag your form element</h4>
-					
-					<code data-bind="html: formSnippet">
-						
-					</code>
-				</div>
-			</div>
-
-			<br/>
-
-			<div class="row">
-				<div class="col-sm">
-					<small>See a demo form <a href="test.html" target="_blank">here</a>.</small>
+					<h4>3. Configure your form element.</h4>
+					<p>Choose from:</p>
+					<div id="accordion" style="max-width: 600px">
+						<div class="card">
+						  <h5 class="mb-0">
+								<button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+								Ready made submission form
+								</button>
+							</h5>
+					  
+						  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+								<div class="card-body">
+									<p>Copy and paste the following html snippet onto your site:</p>
+									<p><small>See a demo form <a href="test.html" target="_blank">here</a>.</small></p>
+									<code data-bind="html: formSnippet">
+										
+									</code>
+								</div>
+						  </div>
+						</div>
+						<br />
+						<div class="card">
+						  <h5 class="mb-0">
+							  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+								Add css class to existing form
+							  </button>
+							</h5>
+						  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+								<div class="card-body">
+									<p>Create a form if you dont already have one and add the following to your email <code>input</code> element:</p>
+										<ul>
+											<li>The class <code>mailsloth-email-input</code></li>
+											<li>The attribute <code>data-bind='<span data-bind="text: publicKey"></span>'</code></li>
+										</ul>
+									</p>
+									<p>The form will be modified to submit to the mailsloth servers before doing its default action.</p>
+								</div>
+						  </div>
+						</div>
+					</div>
 				</div>
 			</div>
 			

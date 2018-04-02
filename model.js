@@ -25,6 +25,14 @@ function VM() {
 		
 		return "// Enter an email address and click submit."
 	});
+
+	this.inputSnippet = ko.computed(() => {
+		if (this.publicKey()) {
+			return "&lt;div class='mailsloth-form' data-bind='" + this.publicKey() + "'/&gt;";
+		}
+		
+		return "// Enter an email address and click submit."
+	});
 	
 	this.downloadSnippet = ko.computed(() => {
 		if (this.privateKey()) {
