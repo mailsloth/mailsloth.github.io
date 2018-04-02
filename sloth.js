@@ -1,7 +1,7 @@
 (function(){
-	const inputCss = 'mailsloth-form-email';
-	const formHereCss = 'mailsloth-form-here';
-	const url = 'https://api.mailsloth.net/add';
+	var inputCss = 'mailsloth-form-email';
+	var formHereCss = 'mailsloth-form-here';
+	var url = 'https://api.mailsloth.net/add';
 
 	function mailsoth_submit(elem, key) {
 		console.log('submitting');
@@ -16,8 +16,6 @@
 			Email: elem.value,
 			SourceUri: window.location.href
 		});
-		
-		console.log(body);
 		
 		req.onreadystatechange = function () {
 			if (req.readyState == 4) { // Done
