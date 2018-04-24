@@ -1,5 +1,5 @@
 function VM() {
-	const endpoint = "http://api.mailsloth.net/";
+	const endpoint = "https://api.mailsloth.net/";
 	const snippetDefault = "// enter an email address above and click submit.";
 
 	this.email = ko.observable("");
@@ -72,7 +72,7 @@ function VM() {
 			error: (err) => {
 				console.error(err);
 				this.success(false);	
-				this.error(error.msg);
+				this.error(err.msg);
 			}
 		});
 	}
